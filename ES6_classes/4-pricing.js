@@ -1,56 +1,32 @@
-import Currency from './3-currency.js';
+import Currency from './3-currency';
 
-class Pricing {
+export default class Pricing {
   constructor(amount, currency) {
-    this._amount = this._validateNumber(amount, 'amount');
-    this._currency = this._validateCurrency(currency, 'currency');
+    this._amount = amount;
+    this._currency = currency;
   }
 
-  // Validation methods
-  _validateNumber(value, attribute) {
-    if (typeof value !== 'number') {
-      throw new TypeError(`${attribute} must be a number`);
-    }
-    return value;
-  }
-
-  _validateCurrency(value, attribute) {
-    if (!(value instanceof Currency)) {
-      throw new TypeError(`${attribute} must be an instance of Currency`);
-    }
-    return value;
-  }
-
-  // Getter and setter for amount
   get amount() {
     return this._amount;
   }
 
-  set amount(value) {
-    this._amount = this._validateNumber(value, 'amount');
+  set amount(ValueAmount) {
+    this._amount = ValueAmount;
   }
 
-  // Getter and setter for currency
   get currency() {
     return this._currency;
   }
 
-  set currency(value) {
-    this._currency = this._validateCurrency(value, 'currency');
+  set currency(currency) {
+    if (currency instanceof Currency) this._currency = currency;
   }
 
-  // Method to display full price
   displayFullPrice() {
-    return `${this._amount} ${this._currency.displayFullCurrency()}`;
+    return `${this._amount} ${this._currency.name} (${this._currency.code})`;
   }
 
-  // Static method to convert price
   static convertPrice(amount, conversionRate) {
-    if (typeof amount !== 'number' || typeof conversionRate !== 'number') {
-      throw new TypeError('Both amount and conversionRate must be numbers');
-    }
     return amount * conversionRate;
   }
 }
-
-export default Pricing;

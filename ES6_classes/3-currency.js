@@ -4,14 +4,6 @@ class Currency {
     this._name = this._validateString(name, 'name');
   }
 
-  // Validation method
-  _validateString(value, attribute) {
-    if (typeof value !== 'string') {
-      throw new TypeError(`${attribute} must be a string`);
-    }
-    return value;
-  }
-
   // Getter and setter for code
   get code() {
     return this._code;
