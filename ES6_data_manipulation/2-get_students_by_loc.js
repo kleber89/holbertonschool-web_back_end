@@ -3,4 +3,4 @@ const getStudentsByLocation = (listStudents, city) => {
   return result;
 };
 
-export default getStudentsByLocation; 
+export default getStudentsByLocation;
