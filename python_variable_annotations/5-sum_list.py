@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-from typing import List
-
 """
 Module 5-sum_list.py
 ===============
@@ -23,6 +21,7 @@ Examples
 >>> sum_list([])
 0.0
 """
+from typing import List
 
 
 def sum_list(input_list: List[float]) -> float:
