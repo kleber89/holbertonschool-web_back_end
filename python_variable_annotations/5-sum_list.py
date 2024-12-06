@@ -5,7 +5,8 @@ from typing import List
 Module 5-sum_list.py
 ===============
 
-This module provides a function to calculate the sum of a list of floating-point numbers.
+This module provides a function to calculate
+the sum of a list of floating-point numbers.
 
 Functions
 ---------
