@@ -24,10 +24,10 @@ Examples
 ('number', 16.0)
 """
 
-from typing import Union
+from typing import Union, Tuple
 
 
-def to_kv(k: str, v: Union[int, float]) -> tuple[str, float]:
+def to_kv(k: str, v: Union[int, float]) -> Tuple[str, float]:
     """
     Create a tuple where the first element is
     a string and the second is the square of a number.
@@ -54,4 +54,4 @@ def to_kv(k: str, v: Union[int, float]) -> tuple[str, float]:
     >>> to_kv("number", -4)
     ('number', 16.0)
     """
-    return k, float(v) ** 2
+    return (str(k), float(v ** 2))
