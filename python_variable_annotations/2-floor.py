@@ -3,7 +3,8 @@
 Module 2-floor.py
 ============
 
-This module provides a function to compute the floor of a floating-point number.
+This module provides a function to
+compute the floor of a floating-point number.
 
 Functions
 ---------
@@ -20,8 +21,6 @@ Examples
 >>> floor(0.0)
 0
 """
-
-
 import math
 
 
@@ -29,7 +28,8 @@ def floor(n: float) -> int:
     """
     Return the floor of a floating-point number.
 
-    The floor of a number is the largest integer less than or equal to the number.
+    The floor of a number is the largest
+    integer less than or equal to the number.
 
     Parameters
     ----------
