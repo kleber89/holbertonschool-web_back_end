@@ -54,4 +54,4 @@ def to_kv(k: str, v: Union[int, float]) -> Tuple[str, float]:
     >>> to_kv("number", -4)
     ('number', 16.0)
     """
-    return (str(k), float(v ** 2))
+    return (k, v ** 2)
