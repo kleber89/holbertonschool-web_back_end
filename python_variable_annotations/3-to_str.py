@@ -3,7 +3,8 @@
 Module 3-to_str.py
 =============
 
-This module provides a function to convert a floating-point number into its string representation.
+This module provides a function to convert
+a floating-point number into its string representation.
 
 Functions
 ---------
