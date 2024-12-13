@@ -10,11 +10,11 @@ import random
 
 async def async_generator():
     """
-    An async generator that yields 10 random numbers between 0 and 10,
-    with a 1-second delay between each yield.
+    An asynchronous generator that yields 10 random numbers.
+    Each iteration waits 1 second before yielding a random number between 0 and 10.
     """
     for _ in range(10):
-        await asyncio.sleep(1)  # Asynchronous delay of 1 second
+        await asyncio.sleep(1)  # Asynchronously wait for 1 second
         yield random.uniform(0, 10)  # Yield a random float between 0 and 10
 
 
