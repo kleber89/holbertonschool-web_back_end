@@ -10,6 +10,13 @@ from pymongo import MongoClient
 
 
 def logs_stats(numbers):
+    """sumary_line
+    
+    Keyword arguments: numbers -- a list of numbers
+    argument -- description 
+    Return: return_description
+    """
+    
     client = MongoClient('mongodb://localhost:27017/')  # Adjust the connection string if needed
     logs = client.logs.nginx
     return logs.count_documents(numbers)
@@ -25,7 +32,7 @@ def main():
     # Display results
     print(f"{logs_stats({})} logs")  # Print total number of logs
     print("Methods:")  # Print header for methods
-    for method in methods:
+    for method in methods: # Iterate over methods
         print(f"\tmethod {method}: {logs_stats({'method': method})}")
     print(f"{logs_stats({'method': 'GET', 'path': '/status'})} status check")
     
