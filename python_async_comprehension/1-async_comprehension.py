@@ -11,32 +11,27 @@ import random
 
 async def async_generator():
     """
-    An async generator that yields 10 random numbers between 0 and 10,
-    with a 1-second delay between each yield.
+    Yield 10 random numbers with a 1-second interval.
+
+    This function uses the asyncio library to asynchronously generate random numbers.
+    It sleeps for 1 second between each number generation to simulate a delay.
+
+    Returns:
+        float: A random number between 0 and 1.
     """
     for _ in range(10):
-        await asyncio.sleep(1)  # Asynchronous delay of 1 second
-        yield random.uniform(0, 10)  # Yield a random float between 0 and 10
+        await asyncio.sleep(1)
+        yield random.random()
 
 
 async def async_comprehension():
     """
-    Uses async comprehension to collect 10 random numbers from async_generator.
+    Collect 10 random numbers using an async comprehension over async_generator.
+
+    This function asynchronously iterates over the async_generator and collects
+    the yielded random numbers into a list.
 
     Returns:
-        list: A list of 10 random numbers collected asynchronously
+        list of float: A list containing 10 random numbers.
     """
     return [number async for number in async_generator()]
-
-
-async def main():
-    """
-    Demonstrate the usage of async_generator and async_comprehension.
-    """
-    print("Collecting random numbers using async comprehension:")
-    result = await async_comprehension()
-    print(result)
-
-
-if __name__ == "__main__":
-    asyncio.run(main())
