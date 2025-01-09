@@ -6,81 +6,57 @@
 
 import asyncio
 import random
-import time  # Import time module for measuring runtime
+import time
+
 
 async def async_generator():
     """
-    Asynchronously generates random integers.
-
-    Yields
-    ------
-    int
-        A random integer between 0 and 100.
-
-    Notes
-    -----
-    This function simulates an asynchronous operation by sleeping for 1 second
-    before yielding each random number. It will generate up to 100 random numbers.
+    An async generator that yields 10 random numbers between 0 and 10,
+    with a 1-second delay between each yield.
     """
-    for _ in range(100):  # Generate 100 random numbers
-        await asyncio.sleep(1)  # Simulate an asynchronous operation
-        yield random.randint(0, 100)
+    for _ in range(10):
+        await asyncio.sleep(1)  # Asynchronous delay of 1 second
+        yield random.uniform(0, 10)  # Yield a random float between 0 and 10
+
 
 async def async_comprehension():
     """
-    Collects 10 random numbers using an asynchronous comprehension.
+    Uses async comprehension to collect 10 random numbers from async_generator.
 
-    Returns
-    -------
-    list of int
-        A list containing 10 random integers collected from the async_generator.
-
-    Notes
-    -----
-    This function uses an async for loop to gather random numbers until it has
-    collected 10 numbers. It breaks out of the loop once the desired count is reached.
+    Returns:
+        list: A list of 10 random numbers collected asynchronously
     """
-    random_numbers = []
-    async for num in async_generator():
-        random_numbers.append(num)
-        if len(random_numbers) == 10:
-            break
-    return random_numbers
+    return [number async for number in async_generator()]
+
 
 async def measure_runtime():
     """
-    Measures the total runtime of executing async_comprehension four times in parallel.
+    Measure the runtime of async_comprehension executed 4 times in parallel.
 
-    Returns
-    -------
-    float
-        The total runtime in seconds for executing async_comprehension four times.
+    Returns:
+        float: Total runtime of the parallel executions
     """
-    start_time = time.time()  # Record the start time
+    start_time = time.perf_counter()
 
-    # Execute async_comprehension four times in parallel
+    # Execute async_comprehension 4 times in parallel
     await asyncio.gather(
         async_comprehension(),
         async_comprehension(),
         async_comprehension(),
-        async_comprehension()
+        async_comprehension(),
     )
 
-    end_time = time.time()  # Record the end time
-    return end_time - start_time  # Calculate the total runtime
+    end_time = time.perf_counter()
+    return end_time - start_time
+
 
 async def main():
     """
-    Main coroutine to execute measure_runtime and print the results.
-
-    Notes
-    -----
-    This function calls measure_runtime and prints the total runtime for executing
-    async_comprehension four times in parallel.
+    Demonstrate the usage of measure_runtime.
     """
-    total_runtime = await measure_runtime()
-    print(f"Total runtime: {total_runtime:.2f} seconds")
+    runtime = await measure_runtime()
+    print(f"Total runtime: {runtime:.2f} seconds")
 
-# Run the main function
+
 if __name__ == "__main__":
     asyncio.run(main())
