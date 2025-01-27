@@ -36,46 +36,21 @@ class Server:
         return self.__indexed_dataset
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
-        """
-        Return deletion-resilient hypermedia pagination metadata.
+        """Get a page of the dataset with resilient handling of deletions."""
+        assert index is not None and 0 <= index < len(
+            self.indexed_dataset()
+        ), "Index out of range"
 
-        Args:
-            index (int, optional): Starting index to retrieve data from. Defaults to None.
-            page_size (int, optional): Number of items to retrieve. Defaults to 10.
-
-        Returns:
-            Dict: Pagination metadata with resilience to deletions
-        """
-        # Get the indexed dataset
-        indexed_dataset = self.indexed_dataset()
-
-        # Validate index
-        assert index is None or (
-            isinstance(index, int) and index >= 0
-        ), "Index must be a non-negative integer"
-
-        # If no index is provided, start from the beginning
-        if index is None:
-            index = 0
-
-        # Initialize variables to collect data and track next index
+        indexed_data = self.indexed_dataset()
         data = []
         current_index = index
+        next_index = index
 
-        # Collect page_size number of items, skipping deleted indices
-        while len(data) < page_size and current_index < len(indexed_dataset):
-            if current_index in indexed_dataset:
-                data.append(indexed_dataset[current_index])
-            current_index += 1
-
-        # Find the next index to query
-        next_index = current_index
-        while next_index < len(indexed_dataset) and next_index not in indexed_dataset:
+        # Collect page_size items starting from the given index
+        while len(data) < page_size and next_index < len(indexed_data):
+            if next_index in indexed_data:
+                data.append(indexed_data[next_index])
             next_index += 1
-
-        # If no more items found, set next_index to None
-        if next_index >= len(indexed_dataset):
-            next_index = None
 
         return {
             "index": index,
